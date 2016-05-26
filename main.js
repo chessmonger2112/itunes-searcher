@@ -6,29 +6,22 @@ var originalUrl = "http://itunes.apple.com/search?media=music&term=2&country=it&
 var albums = [];
 var albumCollection = {};
 function createAlbums(){
-    albums.forEach(album =>
-    {
-      var button = `<div><button class='album'>${album}</button></div>`
-      var div = "<div id='subContainer'></div>";
-      $("#container").append(div);
-      $("#subContainer").append(button);
-    });
+  albums.forEach((album, index) =>
+  {
+    var button = `<button class='album'>${album}</button>`
+    var subContainer = `<div id='subContainer${index}'></div>`;
+    $("#container").append(subContainer);
+    $(`#subContainer${index}`).append(button);
+  });
   $(".album").click(function() {
-  var albumName = $(this).text();
-  console.log(`the name of this album is ${albumName}`);
-  var songs = albumCollection[albumName];
-  songs.forEach(song =>
-    {
-      console.log(song);
-    });
-
-});
-  }
-function foo(){ return $.getJSON(jackUrl + cb, function(data) {
-                        //stub
-  }
+    var albumName = $(this).text();
+    var songs = albumCollection[albumName];
+    var indexNumber = albums.indexOf(albumName);
+    songs.forEach(song => $(`#subContainer${indexNumber}`).append(song + " "));
+  });
+}
+function foo(){ return $.getJSON(jackUrl + cb, function(data) {}
 )};
-
 
 foo().done(function(result){
   // console.log(result.results);
